@@ -1,0 +1,50 @@
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+char* findsubstr(char* achar, char* bchar)
+{
+	int alength=std::strlen(achar), blength=std::strlen(bchar), tmp;
+	int maxsize=0, head=0;
+	char atemp[16], btemp[16];
+	memcpy(atemp, achar, alength);
+	memcpy(btemp, bchar, blength);
+	for (int i = 0; i < blength; ++i)
+	{
+		for (int j = 0; j < alength; ++j)
+		{
+			if (btemp[i] == atemp[j])
+			{
+				int subsize=0;
+				while(btemp[i+subsize]==atemp[j+subsize])
+					subsize++;
+				if (subsize > maxsize)
+				{
+					maxsize=subsize;
+					head=j;
+				}
+			}
+		}
+	}
+	atemp[head+maxsize]=0;
+	return atemp+head;
+}
+
+char*  strreverce(char* input)
+{
+	int len=std::strlen(input);
+	char* result = input;
+	for (int i = 0; i < len/2; ++i)
+	{
+		char tmp = result[len-i-1];
+		result[len-i-1]=result[i];
+		result[i]=tmp;
+	}
+	return result;
+}
+
+int main(int argc, char *argv[])
+{
+	char *achar="cchahacckerker", *bchar="hahaccc", *cchar, *dchar;
+	cchar = findsubstr(achar, bchar);
+	dchar = strreverce(cchar);
+}
